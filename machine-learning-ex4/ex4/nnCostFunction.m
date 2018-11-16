@@ -92,9 +92,25 @@ a3 = sigmoid(z3)
 A = -y_matrix .* log(a3) - (1 - y_matrix) .* log(1 - a3)
 % below we are doing the work of both summation symbol in the formula
 B = sum(A(:))
-J = B/m;
+% C = B/m;
 
+% Now we will practice regularization
+%First we will remove the first column from Theta1 and Theta2
+Theta1(:, [1]) = []
+Theta2(:, [1]) = []
 
+% Now let us square each term of the above two
+Theta1sq = Theta1.^2
+Theta2sq = Theta2.^2
+
+% Add all the terms of both matrices
+sum1 = sum(Theta1sq(:))
+sum2 = sum(Theta2sq(:))
+
+% Final calculation of cost function
+
+C = (lambda*(sum1 + sum2))/2
+J = (B + C)/m
 
 
 
