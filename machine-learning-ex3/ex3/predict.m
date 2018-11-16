@@ -23,7 +23,7 @@ p = zeros(size(X, 1), 1);
 theta1_rows = size(Theta1, 1)
 disp(size(Theta1));
 disp(size(Theta2));
-disp(size(X));
+disp(size(X)); 
 X = [ones(m,1) X];
 A = (sigmoid(Theta1 * X'))';
 A = [ones(m, 1) A];
