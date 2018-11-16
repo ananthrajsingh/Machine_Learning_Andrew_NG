@@ -62,6 +62,38 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% y_matrix has the matrix size 5000 x 10 since we have 5000 examples 
+% and 10 output units (num_labels)
+y_matrix = eye(num_labels)(y,:);
+
+% Adding a column os 1s to X, so new dimension = 5000 x 401
+a1 = [ones(size(X,1), 1) X]
+
+% Now we need to calculate z2, which will be calculated by the product of a1 and Theta1
+% z2 will be a matrix of dimension 5000 x 25
+z2 = a1 * Theta1'
+
+% ' Now we will calculate a2, which will be z2 passed through sigmoid function
+% a2 will also have a column of 1s added for bias units then it will have size 5000 x 26
+a2 = sigmoid(z2)
+a2 = [ones(size(a2,1), 1) a2]
+
+% Calculating z3 now, z3 will be the product of a2 and Theta2, it will be 5000 x 10
+z3 = a2 * Theta2'
+
+%'
+a3 = sigmoid(z3)
+
+
+A = -y_matrix .* log(a3) - (1 - y_matrix) .* log(1 - a3)
+% below we are doing the work of both summation symbol in the formula
+B = sum(A(:))
+J = B/m;
+
 
 
 
