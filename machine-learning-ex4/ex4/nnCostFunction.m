@@ -71,47 +71,96 @@ Theta2_grad = zeros(size(Theta2));
 y_matrix = eye(num_labels)(y,:);
 
 % Adding a column os 1s to X, so new dimension = 5000 x 401
-a1 = [ones(size(X,1), 1) X]
+a1 = [ones(size(X,1), 1) X];
 
 % Now we need to calculate z2, which will be calculated by the product of a1 and Theta1
 % z2 will be a matrix of dimension 5000 x 25
-z2 = a1 * Theta1'
+z2 = a1 * Theta1';
 
 % ' Now we will calculate a2, which will be z2 passed through sigmoid function
 % a2 will also have a column of 1s added for bias units then it will have size 5000 x 26
-a2 = sigmoid(z2)
-a2 = [ones(size(a2,1), 1) a2]
+a2 = sigmoid(z2);
+a2 = [ones(size(a2,1), 1) a2];
 
 % Calculating z3 now, z3 will be the product of a2 and Theta2, it will be 5000 x 10
-z3 = a2 * Theta2'
+z3 = a2 * Theta2';
 
 %'
-a3 = sigmoid(z3)
+a3 = sigmoid(z3);
 
 
-A = -y_matrix .* log(a3) - (1 - y_matrix) .* log(1 - a3)
+A = -y_matrix .* log(a3) - (1 - y_matrix) .* log(1 - a3);
 % below we are doing the work of both summation symbol in the formula
-B = sum(A(:))
+B = sum(A(:));
 % C = B/m;
 
 % Now we will practice regularization
 %First we will remove the first column from Theta1 and Theta2
-Theta1(:, [1]) = []
-Theta2(:, [1]) = []
+
+%Theta1(:, [1]) = [];
+%Theta2(:, [1]) = [];
 
 % Now let us square each term of the above two
-Theta1sq = Theta1.^2
-Theta2sq = Theta2.^2
+Theta1sq = Theta1(:, 2:end).^2;
+Theta2sq = Theta2(:, 2:end).^2;
 
 % Add all the terms of both matrices
-sum1 = sum(Theta1sq(:))
-sum2 = sum(Theta2sq(:))
+sum1 = sum(Theta1sq(:));
+sum2 = sum(Theta2sq(:));
 
 % Final calculation of cost function
 
-C = (lambda*(sum1 + sum2))/2
-J = (B + C)/m
+C = (lambda*(sum1 + sum2))/2;
+J = (B + C)/m;
 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pan through all examples , here m = 5000 cuz 5000 x 400
+% Adding a column os 1s to X, so new dimension = 5000 x 401
+X = [ones(size(X,1), 1) X];
+%Theta1 = [ones(size(Theta1, 1), 1) Theta1];
+%Theta2 = [ones(size(Theta2, 1), 1) Theta2
+
+DELTA1 = zeros(hidden_layer_size, input_layer_size + 1);
+DELTA2 = zeros(num_labels, hidden_layer_size + 1);
+for i = 1:m
+	% we have to feed ith row to input layer this will be a vector with 401 x 1
+	a_1 = X(i,:)';
+	%' perform feedforward
+
+	z_2 = Theta1 * a_1; % result is 25 x 1
+	a_2 = sigmoid(z_2)'; %' since we have to add a column therfore transpose
+	a_2 = [ones(size(a_2,1), 1) a_2]';  %' 26 x 1
+
+	z_3 = Theta2 * a_2; % 10 x 1
+	a_3 = sigmoid(z_3);
+
+	% Time to find error in final layer and storing it delta_3
+	% Below code will arrange the error from each output unit columnwise
+	% Therefore, at the end of for loop we will have del2 to be 10 x 5000
+	% we need to extract the first row from y_matrix and take its transpose
+	temp = y_matrix(i, :)'; %' This is 10 x 1 matrix
+	% delta_3(:, i) = a_3 - temp;
+	delta_3 = a_3 - temp;
+
+	delta_2 = (Theta2(:, 2:end))' * delta_3 .* sigmoidGradient(z_2); %' 25 x 1
+
+	temp_1 = (delta_2 * a_1');
+	temp_2 = (delta_3 * a_2');
+
+
+	DELTA1 = DELTA1 + temp_1;
+	DELTA2 = DELTA2 + temp_2;
+endfor
+
+
+
+Theta1_grad = DELTA1/m;
+Theta2_grad = DELTA2/m;
 
 
 

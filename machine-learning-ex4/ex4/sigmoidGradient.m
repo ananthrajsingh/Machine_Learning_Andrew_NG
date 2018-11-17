@@ -14,9 +14,9 @@ g = zeros(size(z));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELLO FROM ANANTH!
 
-A = sigmoid(z)
+A = sigmoid(z);
 % Dot multiplication since we could be dealing with matrices
-g = A.*(1 - A)
+g = A.*(1 - A);
 
 
 
