@@ -18,6 +18,29 @@ grad = zeros(size(theta));
 %
 %               You should set J to the cost and grad to the gradient.
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
+
+% Okay let us work out to find the cost of this bitch
+
+% X has 1 feature for every example therefore its dimension 12 x 2, including one bias
+% Hence size of y 12 x 1
+% We have one parameter only therefore theta has size 2 x 1
+
+% Let us compute h(theta)
+h_theta = X * theta;
+
+squared_diff_summation = sum((h_theta - y).^2);
+
+%This is important as we start from second parameter
+theta(1) = 0;
+
+theta_squared_summation = sum(theta.^2);
+
+J = (squared_diff_summation + lambda * theta_squared_summation)/(2 * m);
+
+
+
 
 
 
