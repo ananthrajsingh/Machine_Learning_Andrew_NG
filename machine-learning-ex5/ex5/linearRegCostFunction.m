@@ -39,6 +39,14 @@ theta_squared_summation = sum(theta.^2);
 
 J = (squared_diff_summation + lambda * theta_squared_summation)/(2 * m);
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% Calculting gradient
+%%%%%%%%%%%%%%%%%%%%%%%
+
+diff = (h_theta - y); % 12x1
+first_term = X' * diff; %'
+grad = (first_term + lambda * theta)/m;
+
 
 
 
