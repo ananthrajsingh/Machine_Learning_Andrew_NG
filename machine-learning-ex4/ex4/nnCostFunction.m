@@ -152,15 +152,18 @@ for i = 1:m
 	temp_1 = (delta_2 * a_1');
 	temp_2 = (delta_3 * a_2');
 
-
+% Accumulating all of the errors
 	DELTA1 = DELTA1 + temp_1;
 	DELTA2 = DELTA2 + temp_2;
 endfor
 
 
 
-Theta1_grad = DELTA1/m;
-Theta2_grad = DELTA2/m;
+Theta1_grad = (DELTA1(:, 2:end) + lambda .* Theta1(:, 2:end));
+Theta2_grad = (DELTA2(:, 2:end) + lambda .* Theta2(:, 2:end));
+
+Theta1_grad = ([DELTA1(:, 1) Theta1_grad])/m;
+Theta2_grad = ([DELTA2(:, 1) Theta2_grad])/m;
 
 
 
