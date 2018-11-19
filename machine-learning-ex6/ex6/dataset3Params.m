@@ -22,8 +22,35 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
 
+C_vals = [0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30];
+sigma_vals = [0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30];
+error = 100000;
 
+% Below for loops make sure we go through every combintion of C and sigma
+for i = 1:size(C_vals)
+	for j = 1:size(sigma_vals)
+		% We will train the model using current C and sigma
+		model= svmTrain(X, y, C_vals(i), @(x1, x2) gaussianKernel(x1, x2, sigma_vals(j))); 
+
+		% Okay we have the model
+		% Let us do the checking part
+
+		% Here we will get the predictions on Xval
+		predictions = svmPredict(model, Xval);
+
+		% calculate the error
+		current_error = mean(double(predictions ~= yval));
+
+		if (current_error < error)
+			error = current_error;
+			C = C_vals(i);
+			sigma = sigma_vals(j);
+		endif
+	endfor
+endfor			
 
 
 
