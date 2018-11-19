@@ -12,7 +12,7 @@ function [lambda_vec, error_train, error_val] = ...
 % Selected values of lambda (you should not change this)
 lambda_vec = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3 10]';
 
-% You need to return these variables correctly.
+%' You need to return these variables correctly.
 error_train = zeros(length(lambda_vec), 1);
 error_val = zeros(length(lambda_vec), 1);
 
@@ -38,6 +38,25 @@ error_val = zeros(length(lambda_vec), 1);
 %       end
 %
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
+
+% We have to try every lambda value therefore the loop
+for i = 1:length(lambda_vec)
+	% Let us first train the model with current lambda value
+	theta = trainLinearReg(X, y, lambda_vec(i));
+
+	% Okay we trained the model and got the theta values
+	% Now let us check the error for both test set and validation set
+
+	% Test set
+	[J grad] = linearRegCostFunction(X, y, theta, 0);
+	error_train(i) = J;
+
+	% Cross Validation Set
+	[J grad] = linearRegCostFunction(Xval, yval, theta, 0);
+	error_val(i) = J;
+endfor	
 
 
 
