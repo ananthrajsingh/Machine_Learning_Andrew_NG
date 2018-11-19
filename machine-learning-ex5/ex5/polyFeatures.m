@@ -14,7 +14,13 @@ X_poly = zeros(numel(X), p);
 %               column of X contains the values of X to the p-th power.
 %
 % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
 
+% Let us loop from 1 to p to add the powers
+for i = 1:p
+	X_poly(:, i) = X.^i;
+endfor
 
 
 
