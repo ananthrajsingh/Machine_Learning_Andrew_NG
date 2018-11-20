@@ -11,6 +11,7 @@ vocabList = getVocabList();
 
 % Init return value
 word_indices = [];
+word_indices_index = 0;
 
 % ========================== Preprocess Email ===========================
 
@@ -73,8 +74,10 @@ while ~isempty(email_contents)
     % Skip the word if it is too short
     if length(str) < 1
        continue;
-    end
 
+  
+
+    end
     % Look up the word in the dictionary and add to word_indices if
     % found
     % ====================== YOUR CODE HERE ======================
@@ -96,7 +99,24 @@ while ~isempty(email_contents)
     % Note: You can use strcmp(str1, str2) to compare two strings (str1 and
     %       str2). It will return 1 only if the two strings are equivalent.
     %
+    
 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % HELLO FROM ANANTH!
+
+    % We have preprocessed str
+    % now let us look in the vocab if it is present
+    for j = 1:size(vocabList)
+
+        % Check if str present at current index
+        if strcmp(vocabList{j}, str) == 1
+
+            % We found it, let us add to word_indices
+            word_indices_index = word_indices_index + 1;
+            word_indices(word_indices_index) = j;
+            break;
+        endif
+    endfor        
 
 
 
@@ -114,11 +134,11 @@ while ~isempty(email_contents)
         fprintf('\n');
         l = 0;
     end
+
     fprintf('%s ', str);
     l = l + length(str) + 1;
 
 end
-
 % Print footer
 fprintf('\n\n=========================\n');
 
