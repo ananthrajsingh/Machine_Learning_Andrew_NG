@@ -46,7 +46,13 @@ x = zeros(n, 1);
 %
 %              x = [ 0 0 0 0 1 0 0 0 ... 0 0 0 0 1 ... 0 0 0 1 0 ..];
 %
-%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELLO FROM ANANTH!
+%for i = 1:size(word_indices, 2)
+%	current_index = word_indices(i);
+%	x(current_index) = 1;
+%endfor
+x(word_indices) = 1;
 
 
 
