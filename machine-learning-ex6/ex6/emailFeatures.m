@@ -48,6 +48,11 @@ x = zeros(n, 1);
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % HELLO FROM ANANTH!
+
+% Dont know why for loop did not work for submission, it worked for the offline test case
+
+
+
 %for i = 1:size(word_indices, 2)
 %	current_index = word_indices(i);
 %	x(current_index) = 1;

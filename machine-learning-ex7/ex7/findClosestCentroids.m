@@ -20,6 +20,42 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4N4NTH HERE!
+
+% Currently we have size of X as 300 x 2 , that is, 2-D
+
+% We will iterate over every present value of x
+for i = 1:size(idx, 1)
+
+	% Let us calculate distance of current example from all 
+	% centroids
+
+	current_x = X(i, :);
+
+	% Distance between current point and every centroid
+	distance = centroids - current_x;
+
+	% We need squared distance
+	% Also we need to perform columnwise sum, so I am taking transpose to
+	% turn columns into rows because sum() works row-wise
+	% i am just being a bit lazy on this
+	distance = (distance.^2)';
+
+	%' Taking sum of all the distance
+	% This will give squared distance between the current point
+	% and all the centroids.
+	% We will choose the centroid which will have minimum distance
+	distance_sum = sum(distance);
+
+	[min_distance_val, min_val_column] = min(distance_sum);
+
+	idx(i) = min_val_column;
+
+endfor	
+
+
+
 
 
 
