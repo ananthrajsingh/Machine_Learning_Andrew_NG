@@ -25,6 +25,30 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4N4NTH HERE
+
+% Going over every centroid
+for i = 1:K
+	% Let us see which rows in idx have current centroid.
+	% In other words, let us see what all values in X are assigned to 
+	% cluster with current centroid
+	indices = find(idx == i);
+
+	% Now, get the values of all the assigned X points, that we have in
+	% indices
+	X_current_centroid = X(indices, :);
+
+	% Since we have to take the average, we need to know how 
+	% many points are assigned to current centroid
+	num_of_points = size(X_current_centroid, 1);
+
+	% Taking sum of all points and dividing by number of points
+	% to obtain average
+	new_centroid = sum(X_current_centroid)./num_of_points
+
+	centroids(i, :) = new_centroid;
+endfor	
 
 
 
