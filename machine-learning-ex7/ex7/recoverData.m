@@ -18,8 +18,13 @@ X_rec = zeros(size(Z, 1), size(U, 1));
 %                    v = Z(i, :)';
 %                    recovered_j = v' * U(j, 1:K)';
 %
-%               Notice that U(j, 1:K) is a row vector.
-%               
+%               Notice that U(j, 1:K) is a row vector.'
+%      
+% U has dimension n x n
+% K is the dimension reduced
+%          
+
+X_rec = Z * U(:, 1:K)';
 
 
 
