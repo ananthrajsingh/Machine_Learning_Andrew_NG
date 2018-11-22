@@ -19,7 +19,15 @@ S = zeros(n);
 % Note: When computing the covariance matrix, remember to divide by m (the
 %       number of examples).
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4N4NTH HERE!
 
+% We are calculating the covariance matrix
+Sigma = (X' * X)/m;
+%'
+
+% Computing 	principle components
+[U, S, V] = svd(Sigma);
 
 
 

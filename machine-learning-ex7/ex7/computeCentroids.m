@@ -45,7 +45,7 @@ for i = 1:K
 
 	% Taking sum of all points and dividing by number of points
 	% to obtain average
-	new_centroid = sum(X_current_centroid)./num_of_points
+	new_centroid = sum(X_current_centroid)./num_of_points;
 
 	centroids(i, :) = new_centroid;
 endfor	
