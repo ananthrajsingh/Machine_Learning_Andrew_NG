@@ -39,8 +39,20 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4N4NTH HERE!
+
+% Computing cost function w/o regularization
 
 
+
+temp = (((X * Theta') - Y).^2)/2;
+
+%' Since we need to choose only those values for which
+% we have R matrix element as 1
+% In other words, only those movies, which have been
+% explicitly rated by users.	
+J = sum(sum(temp(R == 1)));
 
 
 
