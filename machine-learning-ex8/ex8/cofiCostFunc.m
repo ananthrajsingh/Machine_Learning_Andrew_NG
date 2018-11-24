@@ -54,6 +54,9 @@ temp = (((X * Theta') - Y).^2)/2;
 % explicitly rated by users.	
 J = sum(sum(temp(R == 1)));
 
+% Now taking care of Regularization
+J = J + (lambda * sum(sum(Theta.^2)))/2 + (lambda * sum(sum(X.^2)))/2;
+
 % Let us now deal with gradients
 % Doing it using vector implementation
 % Theta_grad must be num_users x num_features
@@ -76,7 +79,7 @@ X_grad = (temp_X_grad - Y) * Theta;
 %		if (R(i,j) == 1)
 %			% this is 1 x num_features * num_features x 1
 %			temp = X(i, :) * (Theta(j, :)' - y(i,j));
-%			X_grad()	
+%'			X_grad()	
 
 
 
