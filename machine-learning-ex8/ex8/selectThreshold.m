@@ -22,6 +22,37 @@ for epsilon = min(pval):stepsize:max(pval)
     %               
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 4N4NTH HERE!
+
+    % Okay, so we are interested in finding the F*** Score
+    % First thing first, we need predictions vector to compare it to yval
+    predictions = (pval < epsilon);
+
+    % let us get true positive now, 
+    % Values that are true positive are 1 in both the vectors
+    tp = sum((predictions == 1) & (yval == 1));
+
+    % False positives are the values that we predicted 1 but should not be it.
+    fp = sum((predictions == 1) & (yval == 0));
+
+    % False negatives are the values which we were unable to identify
+    % as an anomaly, but they were.
+    fn = sum((predictions == 0) & (yval == 1));
+
+    % For F1 we need precision and recall
+    prec = tp/(tp + fp);
+    rec = tp/(tp + fn);
+
+    % Now that we have all firepower, coming back to deal with F1
+    F1 = (2 * prec * rec)/(prec + rec);
+
+    % Also have to check if this is the best F1 score yet
+    % Oops, seems like they already did this, commenting it out
+%    if (F1 > bestF1)
+%        bestF1 = F1;
+%    endif
+%endfor
 
 
 
