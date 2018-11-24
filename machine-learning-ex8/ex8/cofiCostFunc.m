@@ -65,9 +65,16 @@ temp_Theta_grad = (X * Theta');
 temp_Theta_grad(R == 0) = 0;	
 Theta_grad = (temp_Theta_grad - Y)' * X;
 
+% Taking care of Ragularization
+Theta_grad = Theta_grad + lambda * Theta;
+
+
 temp_X_grad = (X * Theta');
 temp_X_grad(R == 0) = 0;
 X_grad = (temp_X_grad - Y) * Theta;
+
+%' Taking care of Ragularization
+X_grad = X_grad + lambda * X;
 
 %' Things did not go well, using for loop now
 % i gives the current movie
