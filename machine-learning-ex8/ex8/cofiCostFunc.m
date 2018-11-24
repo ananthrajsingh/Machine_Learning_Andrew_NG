@@ -6,7 +6,7 @@ function [J, grad] = cofiCostFunc(params, Y, R, num_users, num_movies, ...
 %   collaborative filtering problem.
 %
 
-% Unfold the U and W matrices from params
+% Unfold the X and Theta matrices from params
 X = reshape(params(1:num_movies*num_features), num_movies, num_features);
 Theta = reshape(params(num_movies*num_features+1:end), ...
                 num_users, num_features);
@@ -54,6 +54,29 @@ temp = (((X * Theta') - Y).^2)/2;
 % explicitly rated by users.	
 J = sum(sum(temp(R == 1)));
 
+% Let us now deal with gradients
+% Doing it using vector implementation
+% Theta_grad must be num_users x num_features
+
+temp_Theta_grad = (X * Theta');
+temp_Theta_grad(R == 0) = 0;	
+Theta_grad = (temp_Theta_grad - Y)' * X;
+
+temp_X_grad = (X * Theta');
+temp_X_grad(R == 0) = 0;
+X_grad = (temp_X_grad - Y) * Theta;
+
+%' Things did not go well, using for loop now
+% i gives the current movie
+%for i = 1:num_movies
+%
+%	% j gives current user
+%	for j = 1:num_users
+%
+%		if (R(i,j) == 1)
+%			% this is 1 x num_features * num_features x 1
+%			temp = X(i, :) * (Theta(j, :)' - y(i,j));
+%			X_grad()	
 
 
 
